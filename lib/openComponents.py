@@ -1,8 +1,6 @@
-from playwright.sync_api import sync_playwright, Playwright
 import os
 
-
-def openBrowser(p):
+def OpenBrowser(p):
     app_data_path = os.getenv("LOCALAPPDATA")
     user_data_path = os.path.join(app_data_path, "Chromium\\User Data\\Default")
     browser = p.chromium.launch_persistent_context(
@@ -14,3 +12,11 @@ def openBrowser(p):
     )
 
     return browser
+
+def OpenPage(browser, link):
+    page = browser.new_page()
+    page.goto(link)
+    page.wait_for_load_state()
+
+    return page
+
